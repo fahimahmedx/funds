@@ -10,8 +10,25 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 ```
 
-```{r}
+```{r, include = FALSE}
 x <- read_csv("ETFs.csv")
-x
+```
+```{r, echo = FALSE}
+x %>% 
+  select(fund_symbol, fund_family, fund_return_1year) %>%
+  group_by(fund_family) %>%
+  summarize(avg_return = mean(fund_return_1year)) %>%
+  arrange(desc(avg_return)) %>%
+  head(5) %>%
+  mutate(fund_family = fct_infreq(fund_family)) %>%
+  mutate(fund_family = fct_rev(fund_family)) %>%
+  ggplot(mapping = aes(x = fct_reorder(fund_family, avg_return), y = avg_return)) +
+    geom_col(fill = "LightBlue") +
+    theme_classic() +
+    labs(title = "Top 5 ETF Managers",
+       subtitle = "ARK ETF Trust was the best performing ETF fund, based on 1 year of performance",
+       x = "Fund Family",
+       y = "Average ETF Return (Percent)",
+       caption = "Source: Yahoo Finance")
 ```
 
