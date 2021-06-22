@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(ggdist)
 ```
 
 ```{r, include = FALSE}
@@ -127,7 +128,7 @@ x <- read_csv("ETFs.csv", col_types = cols(
   fund_treynor_ratio_3years = col_double(),
   category_treynor_ratio_3years = col_double(),
   fund_treynor_ratio_5years = col_double(),
-  category_treynor_ratio_5years = col_double(),
+  category_treynor_ratio_5years = col_character(),
   fund_treynor_ratio_10years = col_double(),
   category_treynor_ratio_10years = col_double()
 ))
@@ -152,18 +153,93 @@ x %>%
        caption = "Source: Yahoo Finance")
 ```
 
-```{r, echo = FALSE}
+```{r, warning = FALSE, echo = FALSE}
 # Does fund_yield correlate to higher returns? 
 x %>%
   select(fund_symbol, fund_yield, fund_return_1year) %>%
   ggplot(mapping = aes(x = fund_yield, y = fund_return_1year)) +
     geom_point(alpha = 0.2) +
     xlim(c(0, 20)) +
-    geom_smooth(method = "lm", formula = y~x, se = FALSE)
+    geom_smooth(method = "lm", formula = y~x, se = FALSE) +
+    theme_classic() +
+    labs(title = "Fund Yield vs. Annual Return",
+         subtitle = "Yield has a negative correlation with annual return.",
+         x = "Fund Yield",
+         y = "Annual Return (Percent)",
+         caption = "Source: Yahoo Finance")
 
 ```
 
 ```{r, echo = FALSE}
-# Graph where x = sector_basic_materials, and y = fund_return_1year. do the same for each sector.
+# Which sector did the best in the past year? Graph where x = sector_basic_materials, and y = fund_return_1year. do the same for each sector.
+```
+
+```{r sector_data, echo = FALSE}
+# Rather than having a column for each sector, replace it with a column named "ratio" (or something else, as it's more of a percentage) containing the ratio of the sector and "sector" containing the name of the sector
+sector_data <- x %>%
+  #select(fund_symbol, sector_basic_materials : sector_technology, fund_return_1year) %>%
+  select(fund_symbol, sector_basic_materials : sector_financial_services, sector_technology, fund_return_1year) %>%
+  pivot_longer(names_to = "sector",
+               values_to = "ratio",
+               cols = c(-fund_symbol, -fund_return_1year)) %>%
+  mutate(sector = str_replace(sector, "sector_", "")) %>% # remove sector_ from the start of each row
+  mutate(sector = str_replace(sector, "_", " ")) %>% # make the values more "word-like"
+  mutate(sector = str_to_title(sector)) %>%
+  filter(ratio >= 50)
+
+# maybe filter(ratio >= 25), so we only see stocks that have a majority in one sector
+```
+
+```{r, echo = FALSE}
+sector_data %>%
+  ggplot(mapping = aes(ratio, fund_return_1year, color = sector)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
+  facet_wrap(~ sector) +
+  theme_classic() +
+  labs(title = "Percentage of Investments in Specific Sectors vs. Annual Return",
+       x = "Percentage in Given Sector",
+       y = "Annual Return",
+       color = "Sector",
+       caption = "Source: Yahoo Finance")
+```
+```{r, echo = FALSE}
+#Not every fund is included (as not every fund has >= 50% invested in a single portion). It takes the one that has the majority in a sector (as filtering by >= 50 only shows ones with majority in a specific sector).
+# Can narrow further by doing >= 75
+# Maybe also do a graph for one with the least in a specific sector, to show which sectors should be avoided for maximum gains (as you can see which funds performed the best with the least in one sector)?
+
+# Add a vertical line at x = 0, to show which side is positive & negative returns.
+
+sector_data %>%
+  ggplot(mapping = aes(fund_return_1year, sector)) +
+  stat_slab() +
+  theme_classic() +
+  labs(title = "Percentage of Investments in Specific Sectors vs. Annual Return",
+       x = "Annual Return",
+       y = "Sector",
+       caption = "Source: Yahoo Finance")
+```
+
+
+```{r, echo = FALSE}
+# Maybe do something with investment_type to determine how far behind blend or value investments are compared to growth. Make a 1 year graph and a 5 year graph.
+x %>%
+  select(investment_type, fund_return_1year) %>%
+  drop_na() %>%
+  group_by(investment_type) %>%
+  summarize(avg_return = mean(fund_return_1year)) %>%
+  mutate(investment_type = fct_infreq(investment_type)) %>% #what does this row & the row below do?
+  mutate(investment_type = fct_rev(investment_type)) %>%
+  ggplot(mapping = aes(x = fct_reorder(investment_type, avg_return), y = avg_return)) +
+    geom_col(fill = "LightBlue") +
+    theme_classic() +
+    labs(title = "Investment Risk vs. Annual Returns",
+         subtitle = "Riskier growth focused investments delivered high returns, \nwhile value oriented investments lost money.",
+         x = "Investment Type",
+         y = "Annual Return")
+```
+
+```{r, echo = FALSE}
+# Maybe add in a graph that analyses when most of these ETF's were made (and if there was any event during that time).
 ```
 
