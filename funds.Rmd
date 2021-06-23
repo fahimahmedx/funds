@@ -206,16 +206,17 @@ sector_data %>%
        color = "Sector",
        caption = "Source: Yahoo Finance")
 ```
+
 ```{r, echo = FALSE}
 #Not every fund is included (as not every fund has >= 50% invested in a single portion). It takes the one that has the majority in a sector (as filtering by >= 50 only shows ones with majority in a specific sector).
 # Can narrow further by doing >= 75
 # Maybe also do a graph for one with the least in a specific sector, to show which sectors should be avoided for maximum gains (as you can see which funds performed the best with the least in one sector)?
 
-# Add a vertical line at x = 0, to show which side is positive & negative returns.
-
 sector_data %>%
   ggplot(mapping = aes(fund_return_1year, sector)) +
   stat_slab() +
+  coord_cartesian(xlim = c(-60, 100)) +
+  geom_vline(xintercept = 0, color = "red") +
   theme_classic() +
   labs(title = "Sectors vs. Annual Return",
        subtitle = "The technology sector performed the best over the past year.",
@@ -223,17 +224,15 @@ sector_data %>%
        y = "Sector",
        caption = "Source: Yahoo Finance")
 ```
-```{r, echo = FALSE}
-#Not every fund is included (as not every fund has >= 50% invested in a single portion). It takes the one that has the majority in a sector (as filtering by >= 50 only shows ones with majority in a specific sector).
-# Can narrow further by doing >= 75
-# Maybe also do a graph for one with the least in a specific sector, to show which sectors should be avoided for maximum gains (as you can see which funds performed the best with the least in one sector)?
 
-# Add a vertical line at x = 0, to show which side is positive & negative returns.
+```{r, echo = FALSE}
 
 sector_data %>%
   drop_na(fund_return_5years) %>%
   ggplot(mapping = aes(fund_return_5years, sector)) +
   stat_slab() +
+  coord_cartesian(xlim = c(-20, 30)) +
+  geom_vline(xintercept = 0, color = "red") +
   theme_classic() +
   labs(title = "Sectors vs. Average Annual Returns Over 5 Years",
        subtitle = "In the longterm, the technology sector performed the best, \nwhile the energy sector had negative returns.",

@@ -6,7 +6,7 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T14:32:44-04:00"
+      "last_modified": "2021-06-23T16:40:07-04:00"
     },
     {
       "path": "funds.html",
@@ -20,7 +20,7 @@
       ],
       "date": "`r Sys.Date()`",
       "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T14:32:50-04:00"
+      "last_modified": "2021-06-23T16:40:13-04:00"
     },
     {
       "path": "index.html",
@@ -28,7 +28,7 @@
       "description": "In this website, I will be analysing ETFs. <br /> Project dataset: https://www.kaggle.com/stefanoleone992/mutual-funds-and-etfs <br /> The analysis can be found in the Analysis tab.\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T14:32:51-04:00"
+      "last_modified": "2021-06-23T16:40:14-04:00"
     }
   ],
   "collections": []
