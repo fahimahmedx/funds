@@ -153,8 +153,9 @@ x %>%
        caption = "Source: Yahoo Finance")
 ```
 
-```{r, warning = FALSE, echo = FALSE}
+```{r, warning = FALSE, echo = FALSE} 
 # Does fund_yield correlate to higher returns? 
+# warning = FALSE as the warning is harmless. It is caused by xlim() cropping out two datapoints.
 x %>%
   select(fund_symbol, fund_yield, fund_return_1year) %>%
   ggplot(mapping = aes(x = fund_yield, y = fund_return_1year)) +
@@ -177,20 +178,17 @@ x %>%
 ```{r sector_data, echo = FALSE}
 # Rather than having a column for each sector, replace it with a column named "ratio" (or something else, as it's more of a percentage) containing the ratio of the sector and "sector" containing the name of the sector
 sector_data <- x %>%
-  #select(fund_symbol, sector_basic_materials : sector_technology, fund_return_1year) %>%
-  select(fund_symbol, sector_basic_materials : sector_financial_services, sector_technology, fund_return_1year) %>%
+  select(fund_symbol, sector_basic_materials : sector_technology, fund_return_1year, fund_return_5years) %>%
   pivot_longer(names_to = "sector",
                values_to = "ratio",
-               cols = c(-fund_symbol, -fund_return_1year)) %>%
+               cols = c(-fund_symbol, -fund_return_1year, -fund_return_5years)) %>%
   mutate(sector = str_replace(sector, "sector_", "")) %>% # remove sector_ from the start of each row
   mutate(sector = str_replace(sector, "_", " ")) %>% # make the values more "word-like"
   mutate(sector = str_to_title(sector)) %>%
   filter(ratio >= 50)
-
-# maybe filter(ratio >= 25), so we only see stocks that have a majority in one sector
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, include = FALSE}
 sector_data %>%
   ggplot(mapping = aes(ratio, fund_return_1year, color = sector)) +
   geom_point() +
@@ -214,15 +212,34 @@ sector_data %>%
   ggplot(mapping = aes(fund_return_1year, sector)) +
   stat_slab() +
   theme_classic() +
-  labs(title = "Percentage of Investments in Specific Sectors vs. Annual Return",
+  labs(title = "Sectors vs. Annual Return",
+       subtitle = "The technology sector performed the best over the past year.",
+       x = "Annual Return",
+       y = "Sector",
+       caption = "Source: Yahoo Finance")
+```
+```{r, echo = FALSE}
+#Not every fund is included (as not every fund has >= 50% invested in a single portion). It takes the one that has the majority in a sector (as filtering by >= 50 only shows ones with majority in a specific sector).
+# Can narrow further by doing >= 75
+# Maybe also do a graph for one with the least in a specific sector, to show which sectors should be avoided for maximum gains (as you can see which funds performed the best with the least in one sector)?
+
+# Add a vertical line at x = 0, to show which side is positive & negative returns.
+
+sector_data %>%
+  drop_na(fund_return_5years) %>%
+  ggplot(mapping = aes(fund_return_5years, sector)) +
+  stat_slab() +
+  theme_classic() +
+  labs(title = "Sectors vs. Average Annual Returns Over 5 Years",
+       subtitle = "In the longterm, the technology sector performed the best, \nwhile the energy sector had negative returns.",
        x = "Annual Return",
        y = "Sector",
        caption = "Source: Yahoo Finance")
 ```
 
-
 ```{r, echo = FALSE}
 # Maybe do something with investment_type to determine how far behind blend or value investments are compared to growth. Make a 1 year graph and a 5 year graph.
+#maybe make the first bar red, because it lost money
 x %>%
   select(investment_type, fund_return_1year) %>%
   drop_na() %>%
@@ -233,10 +250,27 @@ x %>%
   ggplot(mapping = aes(x = fct_reorder(investment_type, avg_return), y = avg_return)) +
     geom_col(fill = "LightBlue") +
     theme_classic() +
-    labs(title = "Investment Risk vs. Annual Returns",
+    labs(title = "Investment Type vs. Annual Returns",
          subtitle = "Riskier growth focused investments delivered high returns, \nwhile value oriented investments lost money.",
          x = "Investment Type",
          y = "Annual Return")
+```
+
+```{r, echo = FALSE}
+x %>%
+  select(investment_type, fund_return_5years) %>%
+  drop_na() %>%
+  group_by(investment_type) %>%
+  summarize(avg_return = mean(fund_return_5years)) %>%
+  mutate(investment_type = fct_infreq(investment_type)) %>% #what does this row & the row below do?
+  mutate(investment_type = fct_rev(investment_type)) %>%
+  ggplot(mapping = aes(x = fct_reorder(investment_type, avg_return), y = avg_return)) +
+    geom_col(fill = "LightBlue") +
+    theme_classic() +
+    labs(title = "Investment Type vs. Average Annual Returns Over 5 Years",
+         subtitle = "In the long term, riskier growth focused investments delivered higher returns.",
+         x = "Investment Type",
+         y = "Average Annual Return")
 ```
 
 ```{r, echo = FALSE}
