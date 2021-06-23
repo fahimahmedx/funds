@@ -1,14 +1,19 @@
 ---
 title: "ETFs"
-author: "Fahim Ahmed"
-date: "6/17/2021"
-output: html_document
+description: |
+  A new article created using the Distill format.
+author:
+  - name: Fahim Ahmed 
+    url: 
+date: "`r Sys.Date()`"
+output: distill::distill_article
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(ggdist)
+library(distill)
 ```
 
 ```{r, include = FALSE}

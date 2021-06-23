@@ -1,0 +1,14 @@
+name: "."
+title: "Exchange Traded Fund (ETF) Analysis"
+description: |
+  Exchange Traded Fund (ETF) Analysis
+output_dir: "docs"
+navbar:
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "Analysis"
+      href: funds.html
+    - text: "About"
+      href: about.html
+output: distill::distill_article
