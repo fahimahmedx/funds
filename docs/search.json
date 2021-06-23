@@ -6,7 +6,7 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T16:40:07-04:00"
+      "last_modified": "2021-06-23T17:50:04-04:00"
     },
     {
       "path": "funds.html",
@@ -19,8 +19,8 @@
         }
       ],
       "date": "`r Sys.Date()`",
-      "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T16:40:13-04:00"
+      "contents": "\r\nWhat ETF manager would provide the highest returns?\r\n\r\n\r\n\r\nAdditional Finding\r\n\r\n\r\n\r\nA fund’s yield (the income generated to investors through interest and dividends) has a negative correlation with returns. This is understandable, as often times a company the fund is invested in would offer dividends to make up for the lack of returns.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nIn the shorterm many sectors were less than or near 0% returns. A few (most notably, the technology sector) surpassed the benchmark of the S&P 500, which tracks the performance of the top 500 companies.\r\n\r\n\r\n\r\nIn the longterm most sectors had positive returns, with the exception being the Energy sector. However, compared to the average returns of the S&P 500 (~10%), most sectors lagged behind with the exception being the technology sector. This shows that most ETFs often fail to meet the returns of the S&P 500, and that it is often a good idea to research about the S&P 500.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nOverall, the investments that have best performed in the past year were growth focused investments in the technology sector. Due to the pandemic, there was immense growth in the technology sector during the past year as people moved to a digital environment. However, the technology sector still outperformed the rest of the sectors during the past 5 years.\r\nHistorical returns do not guarantee future returns.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-06-23T17:50:10-04:00"
     },
     {
       "path": "index.html",
@@ -28,7 +28,7 @@
       "description": "In this website, I will be analysing ETFs. <br /> Project dataset: https://www.kaggle.com/stefanoleone992/mutual-funds-and-etfs <br /> The analysis can be found in the Analysis tab.\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T16:40:14-04:00"
+      "last_modified": "2021-06-23T17:50:10-04:00"
     }
   ],
   "collections": []

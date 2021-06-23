@@ -139,6 +139,8 @@ x <- read_csv("ETFs.csv", col_types = cols(
 ))
 ```
 
+What ETF manager would provide the highest returns?
+
 ```{r, echo = FALSE}
 x %>% 
   select(fund_symbol, fund_family, fund_return_1year) %>%
@@ -148,8 +150,9 @@ x %>%
   head(5) %>%
   mutate(fund_family = fct_infreq(fund_family)) %>%
   mutate(fund_family = fct_rev(fund_family)) %>%
-  ggplot(mapping = aes(x = fct_reorder(fund_family, avg_return), y = avg_return)) +
+  ggplot(mapping = aes(x = fct_reorder(fund_family, avg_return), y = avg_return / 100)) +
     geom_col(fill = "LightBlue") +
+    scale_y_continuous(labels = scales::percent) +
     theme_classic() +
     labs(title = "Top 5 ETF Managers",
        subtitle = "ARK ETF Trust was the best performing ETF fund, based on 1 year of performance",
@@ -157,6 +160,8 @@ x %>%
        y = "Average ETF Return (Percent)",
        caption = "Source: Yahoo Finance")
 ```
+
+Additional Finding
 
 ```{r, warning = FALSE, echo = FALSE} 
 # Does fund_yield correlate to higher returns? 
@@ -175,6 +180,9 @@ x %>%
          caption = "Source: Yahoo Finance")
 
 ```
+
+A fund's yield (the income generated to investors through interest and dividends) has a negative correlation with returns.
+This is understandable, as often times a company the fund is invested in would offer dividends to make up for the lack of returns.
 
 ```{r, echo = FALSE}
 # Which sector did the best in the past year? Graph where x = sector_basic_materials, and y = fund_return_1year. do the same for each sector.
@@ -217,6 +225,7 @@ sector_data %>%
   stat_slab() +
   coord_cartesian(xlim = c(-60, 100)) +
   geom_vline(xintercept = 0, color = "red") +
+  geom_vline(xintercept = 10, color = "blue") +
   theme_classic() +
   labs(title = "Sectors vs. Annual Return",
        subtitle = "The technology sector performed the best over the past year.",
@@ -224,6 +233,7 @@ sector_data %>%
        y = "Sector",
        caption = "Source: Yahoo Finance")
 ```
+In the shorterm many sectors were less than or near 0% returns. A few (most notably, the technology sector) surpassed the benchmark of the S&P 500, which tracks the performance of the top 500 companies.
 
 ```{r, echo = FALSE}
 
@@ -233,6 +243,8 @@ sector_data %>%
   stat_slab() +
   coord_cartesian(xlim = c(-20, 30)) +
   geom_vline(xintercept = 0, color = "red") +
+  geom_vline(xintercept = 10, color = "blue") +
+  geom_text(aes(x = 10 , y = 0.7, label = "S&P 500")) +
   theme_classic() +
   labs(title = "Sectors vs. Average Annual Returns Over 5 Years",
        subtitle = "In the longterm, the technology sector performed the best, \nwhile the energy sector had negative returns.",
@@ -240,6 +252,9 @@ sector_data %>%
        y = "Sector",
        caption = "Source: Yahoo Finance")
 ```
+
+In the longterm most sectors had positive returns, with the exception being the Energy sector. However, compared to the average returns of the S&P 500 (~10%), most sectors lagged behind with the exception being the technology sector.
+This shows that most ETFs often fail to meet the returns of the S&P 500, and that it is often a good idea to research about the S&P 500.
 
 ```{r, echo = FALSE}
 # Maybe do something with investment_type to determine how far behind blend or value investments are compared to growth. Make a 1 year graph and a 5 year graph.
@@ -280,4 +295,9 @@ x %>%
 ```{r, echo = FALSE}
 # Maybe add in a graph that analyses when most of these ETF's were made (and if there was any event during that time).
 ```
+
+Overall, the investments that have best performed in the past year were growth focused investments in the technology sector.
+Due to the pandemic, there was immense growth in the technology sector during the past year as people moved to a digital environment. However, the technology sector still outperformed the rest of the sectors during the past 5 years.
+
+Historical returns do not guarantee future returns. 
 
