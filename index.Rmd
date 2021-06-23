@@ -1,7 +1,8 @@
 ---
 title: "Exchange Traded Fund (ETF) Analysis"
 description: |
-  Welcome to the website. I hope you enjoy it!
+  In this website, I will be analysing ETFs. <br /> Project dataset: https://www.kaggle.com/stefanoleone992/mutual-funds-and-etfs <br /> The analysis can be found in the Analysis tab.
+  
 site: distill::distill_website
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "ETFs"
 description: |
-  A new article created using the Distill format.
+  Work in progess.
 author:
   - name: Fahim Ahmed 
     url: 

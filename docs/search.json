@@ -6,12 +6,12 @@
       "description": "Some additional details about the website",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T14:18:03-04:00"
+      "last_modified": "2021-06-23T14:32:44-04:00"
     },
     {
       "path": "funds.html",
       "title": "ETFs",
-      "description": "A new article created using the Distill format.\n",
+      "description": "Work in progess.\n",
       "author": [
         {
           "name": "Fahim Ahmed",
@@ -20,15 +20,15 @@
       ],
       "date": "`r Sys.Date()`",
       "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T14:18:09-04:00"
+      "last_modified": "2021-06-23T14:32:50-04:00"
     },
     {
       "path": "index.html",
       "title": "Exchange Traded Fund (ETF) Analysis",
-      "description": "Welcome to the website. I hope you enjoy it!\n",
+      "description": "In this website, I will be analysing ETFs. <br /> Project dataset: https://www.kaggle.com/stefanoleone992/mutual-funds-and-etfs <br /> The analysis can be found in the Analysis tab.\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-23T14:18:10-04:00"
+      "last_modified": "2021-06-23T14:32:51-04:00"
     }
   ],
   "collections": []
