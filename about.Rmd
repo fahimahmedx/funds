@@ -1,10 +1,13 @@
 ---
-title: "About this site"
-description: |
-  Some additional details about the website
+title: "Fahim Ahmed"
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## About Me
+My name's **Fahim Ahmed**. I'm an incoming University of Waterloo student, passionate about computer science and finance.
+
+## About the Project
+**What investments would have made you bank if you invested in them last year?** <br /> To answer this question, I took a look at a Kaggle dataset web scraped from Yahoo Finance, containing data on over a thousand Exchange Traded Funds (ETF). My project, *Investment Analysis of Exchange Traded Funds (ETF)*, analyzes which managers created the highest returning funds, what sector had the highest returns, and what level of risk resulted in the most returns.
