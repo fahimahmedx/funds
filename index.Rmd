@@ -1,5 +1,5 @@
 ---
-title: "Exchange Traded Fund (ETF) Investment Analysis"
+title: "Investment Analysis of Exchange Traded Funds (ETF)"
 description: |
   In this website, I will be analysing ETFs. <br /> Project dataset: https://www.kaggle.com/stefanoleone992/mutual-funds-and-etfs <br /> The analysis can be found in the Analysis tab.
   

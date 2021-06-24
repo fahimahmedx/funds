@@ -1,7 +1,5 @@
 ---
-title: "ETFs"
-description: |
-  Work in progess.
+title: "Investment Analysis of Exchange Traded Funds (ETF)"
 author:
   - name: Fahim Ahmed 
     url: 
@@ -139,7 +137,7 @@ x <- read_csv("ETFs.csv", col_types = cols(
 ))
 ```
 
-What ETF manager would provide the highest returns?
+# What ETF manager would provide the highest returns?
 
 ```{r, echo = FALSE}
 x %>% 
@@ -161,7 +159,9 @@ x %>%
        caption = "Source: Yahoo Finance")
 ```
 
-Additional Finding
+ARK ETF Trust outperformed the other ETF funds in the past year. This fund focuses on disruptive innovation.
+
+# Does the fund's yield correlate to higher returns? 
 
 ```{r, warning = FALSE, echo = FALSE} 
 # Does fund_yield correlate to higher returns? 
@@ -181,12 +181,8 @@ x %>%
 
 ```
 
-A fund's yield (the income generated to investors through interest and dividends) has a negative correlation with returns.
+A form of investing called dividend investing has been on the rise lately, with people investing to instead maximize dividends. A fund's yield (the income generated to investors through interest and dividends) has a negative correlation with returns.
 This is understandable, as often times a company the fund is invested in would offer dividends to make up for the lack of returns.
-
-```{r, echo = FALSE}
-# Which sector did the best in the past year? Graph where x = sector_basic_materials, and y = fund_return_1year. do the same for each sector.
-```
 
 ```{r sector_data, echo = FALSE}
 # Rather than having a column for each sector, replace it with a column named "ratio" (or something else, as it's more of a percentage) containing the ratio of the sector and "sector" containing the name of the sector
@@ -215,6 +211,8 @@ sector_data %>%
        caption = "Source: Yahoo Finance")
 ```
 
+# What sector performed the best in the long-term?
+
 ```{r, echo = FALSE}
 #Not every fund is included (as not every fund has >= 50% invested in a single portion). It takes the one that has the majority in a sector (as filtering by >= 50 only shows ones with majority in a specific sector).
 # Can narrow further by doing >= 75
@@ -233,7 +231,9 @@ sector_data %>%
        y = "Sector",
        caption = "Source: Yahoo Finance")
 ```
-In the shorterm many sectors were less than or near 0% returns. A few (most notably, the technology sector) surpassed the benchmark of the S&P 500, which tracks the performance of the top 500 companies.
+In the shorterm many sectors were less than or near 0% returns. A few (most notably, the technology sector) surpassed the benchmark of the S&P 500 (the blue line, ~10% returns), which tracks the performance of the top 500 companies.
+
+# What sector performed the best in the long-term?
 
 ```{r, echo = FALSE}
 
@@ -256,6 +256,8 @@ sector_data %>%
 In the longterm most sectors had positive returns, with the exception being the Energy sector. However, compared to the average returns of the S&P 500 (~10%), most sectors lagged behind with the exception being the technology sector.
 This shows that most ETFs often fail to meet the returns of the S&P 500, and that it is often a good idea to research about the S&P 500.
 
+# How did growth ETFs compare to value ETFs in the short-term?
+
 ```{r, echo = FALSE}
 # Maybe do something with investment_type to determine how far behind blend or value investments are compared to growth. Make a 1 year graph and a 5 year graph.
 #maybe make the first bar red, because it lost money
@@ -275,6 +277,11 @@ x %>%
          y = "Annual Return")
 ```
 
+Growth focused investing focuses on investments that have the future potential to outperform the overall market. Value focused investing focuses on investments that are currently undervalued, trading below what they are really worth. During the past year, value ETFs has negative returns while growth ETFs had positive returns.
+
+
+# How did growth ETFs compare to value ETFs in the long-term?
+
 ```{r, echo = FALSE}
 x %>%
   select(investment_type, fund_return_5years) %>%
@@ -292,12 +299,16 @@ x %>%
          y = "Average Annual Return")
 ```
 
-```{r, echo = FALSE}
+Averaging out the past 5 years, value ETFs had next to no returns allowing it to only hedge against inflation, while growth ETFs had significantly higher returns.
+
+```{r, echo = FALSE, include = FALSE}
 # Maybe add in a graph that analyses when most of these ETF's were made (and if there was any event during that time).
 ```
 
-Overall, the investments that have best performed in the past year were growth focused investments in the technology sector.
-Due to the pandemic, there was immense growth in the technology sector during the past year as people moved to a digital environment. However, the technology sector still outperformed the rest of the sectors during the past 5 years.
+# What ETF investments performed the best?
 
-Historical returns do not guarantee future returns. 
+Overall, the ETFs that have best performed in the past year were growth focused investments in the technology sector.
+Due to the pandemic, there was immense growth in the technology sector during the past year as people moved to a digital environment. However, the technology sector still outperformed the rest of the sectors during the past 5 years. ARK was a popular fund that created many high-performing ETFs, beating the returns of other funds.
+
+**Historical returns do not guarantee future returns.** This analysis is meant for educational purposes only, and should not be taken as financial advice.
 
