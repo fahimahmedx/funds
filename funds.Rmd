@@ -211,7 +211,7 @@ sector_data %>%
        caption = "Source: Yahoo Finance")
 ```
 
-# What sector performed the best in the long-term?
+# What sector performed the best in the short-term?
 
 ```{r, echo = FALSE}
 #Not every fund is included (as not every fund has >= 50% invested in a single portion). It takes the one that has the majority in a sector (as filtering by >= 50 only shows ones with majority in a specific sector).

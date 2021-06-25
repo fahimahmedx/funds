@@ -1,7 +1,7 @@
 ---
 title: "Investment Analysis of Exchange Traded Funds (ETF)"
 description: |
-  In this website, I will be analysing ETFs. <br /> Project dataset: https://www.kaggle.com/stefanoleone992/mutual-funds-and-etfs <br /> The analysis can be found in the Analysis tab.
+  An analysis of over one thousand ETFs.
   
 site: distill::distill_website
 ---
@@ -9,11 +9,12 @@ site: distill::distill_website
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating websites with Distill at:
-# https://rstudio.github.io/distill/website.html
-
-# Learn more about publishing to GitHub Pages at:
-# https://rstudio.github.io/distill/publish_website.html#github-pages
-
+library(tidyverse)
+library(knitr)
 ```
 
+```{r, echo = FALSE}
+include_graphics("etfs1-400x225.jpg")
+```
+
+Project dataset: https://www.kaggle.com/stefanoleone992/mutual-funds-and-etfs <br /> The analysis can be found in the Analysis tab in the top right.
