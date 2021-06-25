@@ -1,0 +1,25 @@
+---
+title: "Sources"
+description: |
+  The source for my project's dataset can be found here!
+author:
+  - name: Fahim Ahmed 
+date: "`r Sys.Date()`"
+output: distill::distill_article
+bibliography: bibliography.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+The dataset for this project was from Stefano Leone on Kaggle. [@dataset]
+
+Distill is a publication format for scientific and technical writing, native to the web. 
+
+Learn more about using Distill for R Markdown at <https://rstudio.github.io/distill>.
+
+
+
+
+
