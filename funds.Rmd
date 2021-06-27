@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(ggdist)
 library(distill)
+library(knitr)
 ```
 
 ```{r, include = FALSE}
@@ -139,118 +140,40 @@ x <- read_csv("ETFs.csv", col_types = cols(
 
 # What ETF manager would provide the highest returns?
 
-```{r, echo = FALSE}
-x %>% 
-  select(fund_symbol, fund_family, fund_return_1year) %>%
-  group_by(fund_family) %>%
-  summarize(avg_return = mean(fund_return_1year)) %>%
-  arrange(desc(avg_return)) %>%
-  head(5) %>%
-  mutate(fund_family = fct_infreq(fund_family)) %>%
-  mutate(fund_family = fct_rev(fund_family)) %>%
-  ggplot(mapping = aes(x = fct_reorder(fund_family, avg_return), y = avg_return / 100)) +
-    geom_col(fill = "LightBlue") +
-    scale_y_continuous(labels = scales::percent) +
-    theme_classic() +
-    labs(title = "Top 5 ETF Managers",
-       subtitle = "ARK ETF Trust was the best performing ETF fund, based on 1 year of performance",
-       x = "Fund Family",
-       y = "Average ETF Return (Percent)",
-       caption = "Source: Yahoo Finance")
+```{r manager-plot, echo = FALSE}
+manager_plot <- read_rds("manager-plot.rds")
+ggsave("manager-plot.png", plot = manager_plot)
+include_graphics("manager-plot.png")
 ```
 
 ARK ETF Trust outperformed the other ETF funds in the past year. This fund focuses on disruptive innovation.
 
 # Does the fund's yield correlate to higher returns? 
 
-```{r, warning = FALSE, echo = FALSE} 
-# Does fund_yield correlate to higher returns? 
-# warning = FALSE as the warning is harmless. It is caused by xlim() cropping out two datapoints.
-x %>%
-  select(fund_symbol, fund_yield, fund_return_1year) %>%
-  ggplot(mapping = aes(x = fund_yield, y = fund_return_1year)) +
-    geom_point(alpha = 0.2) +
-    xlim(c(0, 20)) +
-    geom_smooth(method = "lm", formula = y~x, se = FALSE) +
-    theme_classic() +
-    labs(title = "Fund Yield vs. Annual Return",
-         subtitle = "Yield has a negative correlation with annual return.",
-         x = "Fund Yield",
-         y = "Annual Return (Percent)",
-         caption = "Source: Yahoo Finance")
-
+```{r yield-plot, warning = FALSE, echo = FALSE} 
+yield_plot <- read_rds("yield-plot.rds")
+ggsave("yield-plot.png", plot = yield_plot)
+include_graphics("yield-plot.png")
 ```
 
 A form of investing called dividend investing has been on the rise lately, with people investing to instead maximize dividends. A fund's yield (the income generated to investors through interest and dividends) has a negative correlation with returns.
 This is understandable, as often times a company the fund is invested in would offer dividends to make up for the lack of returns.
 
-```{r sector_data, echo = FALSE}
-# Rather than having a column for each sector, replace it with a column named "ratio" (or something else, as it's more of a percentage) containing the ratio of the sector and "sector" containing the name of the sector
-sector_data <- x %>%
-  select(fund_symbol, sector_basic_materials : sector_technology, fund_return_1year, fund_return_5years) %>%
-  pivot_longer(names_to = "sector",
-               values_to = "ratio",
-               cols = c(-fund_symbol, -fund_return_1year, -fund_return_5years)) %>%
-  mutate(sector = str_replace(sector, "sector_", "")) %>% # remove sector_ from the start of each row
-  mutate(sector = str_replace(sector, "_", " ")) %>% # make the values more "word-like"
-  mutate(sector = str_to_title(sector)) %>%
-  filter(ratio >= 50)
-```
-
-```{r, echo = FALSE, include = FALSE}
-sector_data %>%
-  ggplot(mapping = aes(ratio, fund_return_1year, color = sector)) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = y ~ x, se = FALSE) +
-  facet_wrap(~ sector) +
-  theme_classic() +
-  labs(title = "Percentage of Investments in Specific Sectors vs. Annual Return",
-       x = "Percentage in Given Sector",
-       y = "Annual Return",
-       color = "Sector",
-       caption = "Source: Yahoo Finance")
-```
-
 # What sector performed the best in the short-term?
 
-```{r, echo = FALSE}
-#Not every fund is included (as not every fund has >= 50% invested in a single portion). It takes the one that has the majority in a sector (as filtering by >= 50 only shows ones with majority in a specific sector).
-# Can narrow further by doing >= 75
-# Maybe also do a graph for one with the least in a specific sector, to show which sectors should be avoided for maximum gains (as you can see which funds performed the best with the least in one sector)?
-
-sector_data %>%
-  ggplot(mapping = aes(fund_return_1year, sector)) +
-  stat_slab() +
-  coord_cartesian(xlim = c(-60, 100)) +
-  geom_vline(xintercept = 0, color = "red") +
-  geom_vline(xintercept = 10, color = "blue") +
-  theme_classic() +
-  labs(title = "Sectors vs. Annual Return",
-       subtitle = "The technology sector performed the best over the past year.",
-       x = "Annual Return",
-       y = "Sector",
-       caption = "Source: Yahoo Finance")
+```{r sector-short-plot, echo = FALSE}
+sector_short_plot <- read_rds("sector-short-plot.rds")
+ggsave("sector-short-plot.png", plot = sector_short_plot)
+include_graphics("sector-short-plot.png")
 ```
 In the shorterm many sectors were less than or near 0% returns. A few (most notably, the technology sector) surpassed the benchmark of the S&P 500 (the blue line, ~10% returns), which tracks the performance of the top 500 companies.
 
 # What sector performed the best in the long-term?
 
-```{r, echo = FALSE}
-
-sector_data %>%
-  drop_na(fund_return_5years) %>%
-  ggplot(mapping = aes(fund_return_5years, sector)) +
-  stat_slab() +
-  coord_cartesian(xlim = c(-20, 30)) +
-  geom_vline(xintercept = 0, color = "red") +
-  geom_vline(xintercept = 10, color = "blue") +
-  geom_text(aes(x = 10 , y = 0.7, label = "S&P 500")) +
-  theme_classic() +
-  labs(title = "Sectors vs. Average Annual Returns Over 5 Years",
-       subtitle = "In the longterm, the technology sector performed the best, \nwhile the energy sector had negative returns.",
-       x = "Annual Return",
-       y = "Sector",
-       caption = "Source: Yahoo Finance")
+```{r sector-long-plot, echo = FALSE}
+sector_long_plot <- read_rds("sector-long-plot.rds")
+ggsave("sector-long-plot.png", plot = sector_long_plot)
+include_graphics("sector-long-plot.png")
 ```
 
 In the longterm most sectors had positive returns, with the exception being the Energy sector. However, compared to the average returns of the S&P 500 (~10%), most sectors lagged behind with the exception being the technology sector.
@@ -258,52 +181,23 @@ This shows that most ETFs often fail to meet the returns of the S&P 500, and tha
 
 # How did growth ETFs compare to value ETFs in the short-term?
 
-```{r, echo = FALSE}
-# Maybe do something with investment_type to determine how far behind blend or value investments are compared to growth. Make a 1 year graph and a 5 year graph.
-#maybe make the first bar red, because it lost money
-x %>%
-  select(investment_type, fund_return_1year) %>%
-  drop_na() %>%
-  group_by(investment_type) %>%
-  summarize(avg_return = mean(fund_return_1year)) %>%
-  mutate(investment_type = fct_infreq(investment_type)) %>% #what does this row & the row below do?
-  mutate(investment_type = fct_rev(investment_type)) %>%
-  ggplot(mapping = aes(x = fct_reorder(investment_type, avg_return), y = avg_return)) +
-    geom_col(fill = "LightBlue") +
-    theme_classic() +
-    labs(title = "Investment Type vs. Annual Returns",
-         subtitle = "Riskier growth focused investments delivered high returns, \nwhile value oriented investments lost money.",
-         x = "Investment Type",
-         y = "Annual Return")
+```{r type-short-plot, echo = FALSE}
+type_short_plot <- read_rds("type-short-plot.rds")
+ggsave("type-short-plot.png", plot = type_short_plot)
+include_graphics("type-short-plot.png")
 ```
 
 Growth focused investing focuses on investments that have the future potential to outperform the overall market. Value focused investing focuses on investments that are currently undervalued, trading below what they are really worth. During the past year, value ETFs has negative returns while growth ETFs had positive returns.
 
-
 # How did growth ETFs compare to value ETFs in the long-term?
 
-```{r, echo = FALSE}
-x %>%
-  select(investment_type, fund_return_5years) %>%
-  drop_na() %>%
-  group_by(investment_type) %>%
-  summarize(avg_return = mean(fund_return_5years)) %>%
-  mutate(investment_type = fct_infreq(investment_type)) %>% #what does this row & the row below do?
-  mutate(investment_type = fct_rev(investment_type)) %>%
-  ggplot(mapping = aes(x = fct_reorder(investment_type, avg_return), y = avg_return)) +
-    geom_col(fill = "LightBlue") +
-    theme_classic() +
-    labs(title = "Investment Type vs. Average Annual Returns Over 5 Years",
-         subtitle = "In the long term, riskier growth focused investments delivered higher returns.",
-         x = "Investment Type",
-         y = "Average Annual Return")
+```{r type-long-plot, echo = FALSE}
+type_long_plot <- read_rds("type-long-plot.rds")
+ggsave("type-long-plot.png", plot = type_long_plot)
+include_graphics("type-long-plot.png")
 ```
 
 Averaging out the past 5 years, value ETFs had next to no returns allowing it to only hedge against inflation, while growth ETFs had significantly higher returns.
-
-```{r, echo = FALSE, include = FALSE}
-# Maybe add in a graph that analyses when most of these ETF's were made (and if there was any event during that time).
-```
 
 # What ETF investments performed the best?
 
