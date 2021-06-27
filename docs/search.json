@@ -5,7 +5,7 @@
       "title": "Fahim Ahmed",
       "author": [],
       "contents": "\r\nAbout Me\r\nMy name’s Fahim Ahmed. I’m an incoming University of Waterloo student, passionate about computer science and finance.\r\nAbout the Project\r\nWhat investments would have made you bank if you invested in them last year?  To answer this question, I took a look at a Kaggle dataset web scraped from Yahoo Finance, containing data on over a thousand Exchange Traded Funds (ETF). My project, Investment Analysis of Exchange Traded Funds (ETF), analyzes which managers created the highest returning funds, what sector had the highest returns, and what level of risk resulted in the most returns.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-26T21:52:08-04:00"
+      "last_modified": "2021-06-26T21:58:52-04:00"
     },
     {
       "path": "funds.html",
@@ -17,8 +17,8 @@
         }
       ],
       "date": "`r Sys.Date()`",
-      "contents": "\r\nWhat ETF manager would provide the highest returns?\r\n\r\n\r\n\r\nARK ETF Trust outperformed the other ETF funds in the past year. This fund focuses on disruptive innovation.\r\nDoes the fund’s yield correlate to higher returns?\r\n\r\n\r\n\r\nA form of investing called dividend investing has been on the rise lately, with people investing to instead maximize dividends. A fund’s yield (the income generated to investors through interest and dividends) has a negative correlation with returns. This is understandable, as often times a company the fund is invested in would offer dividends to make up for the lack of returns.\r\nWhat sector performed the best in the short-term?\r\n\r\n\r\n\r\nIn the shorterm many sectors were less than or near 0% returns. A few (most notably, the technology sector) surpassed the benchmark of the S&P 500 (the blue line, ~10% returns), which tracks the performance of the top 500 companies.\r\nWhat sector performed the best in the long-term?\r\n\r\n\r\n\r\nIn the longterm most sectors had positive returns, with the exception being the Energy sector. However, compared to the average returns of the S&P 500 (~10%), most sectors lagged behind with the exception being the technology sector. This shows that most ETFs often fail to meet the returns of the S&P 500, and that it is often a good idea to research about the S&P 500.\r\nHow did growth ETFs compare to value ETFs in the short-term?\r\n\r\n\r\n\r\nGrowth focused investing focuses on investments that have the future potential to outperform the overall market. Value focused investing focuses on investments that are currently undervalued, trading below what they are really worth. During the past year, value ETFs has negative returns while growth ETFs had positive returns.\r\nHow did growth ETFs compare to value ETFs in the long-term?\r\n\r\n\r\n\r\nAveraging out the past 5 years, value ETFs had next to no returns allowing it to only hedge against inflation, while growth ETFs had significantly higher returns.\r\nWhat ETF investments performed the best?\r\nOverall, the ETFs that have best performed in the past year were growth focused investments in the technology sector. Due to the pandemic, there was immense growth in the technology sector during the past year as people moved to a digital environment. However, the technology sector still outperformed the rest of the sectors during the past 5 years. ARK was a popular fund that created many high-performing ETFs, beating the returns of other funds.\r\nHistorical returns do not guarantee future returns. This analysis is meant for educational purposes only, and should not be taken as financial advice.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-26T21:52:13-04:00"
+      "contents": "\r\nWhat sector performed the best in the short-term?\r\n\r\n\r\n\r\nIn the shorterm many sectors were less than or near 0% returns. A few (most notably, the technology sector) surpassed the benchmark of the S&P 500 (the blue line, ~10% returns), which tracks the performance of the top 500 companies.\r\nWhat sector performed the best in the long-term?\r\n\r\n\r\n\r\nIn the longterm most sectors had positive returns, with the exception being the Energy sector. However, compared to the average returns of the S&P 500 (~10%), most sectors lagged behind with the exception being the technology sector. This shows that most ETFs often fail to meet the returns of the S&P 500, and that it is often a good idea to research about the S&P 500.\r\nHow did growth ETFs compare to value ETFs in the short-term?\r\n\r\n\r\n\r\nGrowth focused investing focuses on investments that have the future potential to outperform the overall market. Value focused investing focuses on investments that are currently undervalued, trading below what they are really worth. During the past year, value ETFs has negative returns while growth ETFs had positive returns.\r\nHow did growth ETFs compare to value ETFs in the long-term?\r\n\r\n\r\n\r\nAveraging out the past 5 years, value ETFs had next to no returns allowing it to only hedge against inflation, while growth ETFs had significantly higher returns.\r\nWhat ETF manager provided the highest returns?\r\n\r\n\r\n\r\nARK ETF Trust outperformed the other ETF funds in the past year. This fund focuses on disruptive innovation and appears to have a focus on the technology sector.\r\nDoes the fund’s yield correlate to higher returns?\r\n\r\n\r\n\r\nA form of investing called dividend investing has been on the rise lately, with people investing to instead maximize dividends. A fund’s yield (the income generated to investors through interest and dividends) has a negative correlation with returns. This is understandable, as often times a company the fund is invested in would offer dividends to make up for the lack of returns.\r\nWhat ETF investments performed the best?\r\nOverall, the ETFs that have best performed in the past year were growth focused investments in the technology sector. Due to the pandemic, there was immense growth in the technology sector during the past year as people moved to a digital environment. However, the technology sector still outperformed the rest of the sectors during the past 5 years. ARK was a popular fund that created many high-performing ETFs, beating the returns of other funds.\r\nHistorical returns do not guarantee future returns. This analysis is meant for educational purposes only, and should not be taken as financial advice.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-06-26T21:58:57-04:00"
     },
     {
       "path": "index.html",
@@ -26,7 +26,7 @@
       "description": "An analysis of over one thousand ETFs.\n",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\nProject dataset: https://www.kaggle.com/stefanoleone992/mutual-funds-and-etfs  The analysis can be found in the Analysis tab in the top right.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-26T21:52:13-04:00"
+      "last_modified": "2021-06-26T21:58:58-04:00"
     },
     {
       "path": "sources.html",
@@ -40,7 +40,7 @@
       ],
       "date": "`r Sys.Date()`",
       "contents": "\r\nThe dataset for this project was from Stefano Leone on Kaggle. (Leone 2020)\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill for R Markdown at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\nLeone, Stefano. 2020. “US Funds Dataset from Yahoo Finance.”\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-06-26T21:52:14-04:00"
+      "last_modified": "2021-06-26T21:58:59-04:00"
     }
   ],
   "collections": []
