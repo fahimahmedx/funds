@@ -5,4 +5,4 @@ This project analyzes a Kaggle dataset web scraped from Yahoo Finance, containin
 The insights this project generates include which sectors had the highest returns, what investment type (growth or value) resulted in the most returns, and which managers created the highest returning funds.
 
 # Usage
-To view this analysis, visit this page: https://fahimahmed0x.github.io/funds/
+To view this analysis, visit this page: https://fahimahmedx.github.io/funds/
